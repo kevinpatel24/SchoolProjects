@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Flack</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelector('#loginButton').onclick = login;
+      if (!localStorage.getItem('displayname')) {
+        document.querySelector('#chatList').style.display = "none";
+        document.querySelector('#header').innerHTML = "Welcome to Flack. Please enter a displayname";
+      } else {
+        appear();
+      }
+    });
+
+    function login() {
+      let displayname = document.querySelector('#displayname').value;
+      localStorage.setItem('displayname', displayname);
+      appear();
+      const request = new XMLHttpRequest();
+      request.open('POST', '/newUser')
+      const data = new FormData();
+      data.append('displayname', displayname);
+      request.send(data);
+      return false;
+    }
+
+    function appear() {
+      let displayname = localStorage.getItem('displayname');
+      document.querySelector('#newUser').style.display = "none";
+      document.querySelector('#header').innerHTML = "Welcome to Chat. Join a room below";
+      document.querySelector('#chatList').style.display = "inline";
+      document.querySelector('#displayname').innerHTML = displayname;
+      return false;
+
+    }
+  </script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<body style="text-align: center;">
+  </head>
+
+  <body>
+    <br>
+    <form action="{{ url_for('index') }}">
+      <input type="image" src="https://storage.needpix.com/rsynced_images/chat-1294839_1280.png" alt="Submit" width="10%" height="10%"></form>
+    <h1 style="color: red;">{{ message }}</h1>
+    <h2 id="header"> Welcome to Chat! Join a room below </h2>
+    <form id="newUser" method="POST">
+      <input type="text" name="displayname" placeholder="Enter a displayname" id="displayname">
+      <br>
+      <br>
+      <button id="loginButton">See open chats</button>
+    </form>
+    <ul id="chatList" style="list-style-position: inside;">
+      {% for key in chats %}
+      <li>
+        <a href="/chat/{{key}}">{{ key }}</a>
+        <br>
+        {% endfor %}
+        <br>
+        <form action="{{ url_for('addChat') }}" method="POST" id="chatList">
+          <input type="text" name="newChat" placeholder="Start new Chat" id="newChat">
+          <br>
+          <br>
+          <button id="newChatButton">Add new chat</button>
+        </form>
+
+    </ul>
+    <br>
+  </body>
+
+</html>

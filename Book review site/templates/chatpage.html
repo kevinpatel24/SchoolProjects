@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+  <script src="{{ url_for('static', filename='javascript.js') }}"></script>
+  <title>ChatPage</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<body style="text-align: center;">
+  <style>
+    @keyframes fadeIn {
+      0% {
+        opacity: 0
+      }
+
+      100% {
+        opacity: 1
+      }
+    }
+
+    body {
+      background-image: none;
+      animation-name: fadeIn;
+      animation-duration: 3s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: 1;
+    }
+  </style>
+  </head>
+
+  <body>
+    <br>
+    <form action="{{ url_for('index') }}">
+      <input type="image" src="https://storage.needpix.com/rsynced_images/chat-1294839_1280.png" alt="Submit" width="10%" height="10%"></form>
+    <h1 id="alert"></h1>
+    <h2 id="header">Welcome <span id="displayname"></span>. You are in the <span id="chatName">{{ chat }}</span> chat</h2>
+    <br>
+    <table id="messages" class="table table-bordered">
+      <tr>
+        <th>Displayname</th>
+        <th>Time</th>
+        <th>Message</th>
+      </tr>
+      {% for message in messages %}
+      <tr>
+        <td>{{ message[0] }} </td>
+        <td> {{ message[2] }} </td>
+        <td> {{ message[1] }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <input type="text" name="newMessageField" placeholder="Add new message" id="newMessageField">
+    <br>
+    <br>
+    <button id="newMessageButton">Add new message</button>
+    </ul>
+
+  </body>
+
+</html>
