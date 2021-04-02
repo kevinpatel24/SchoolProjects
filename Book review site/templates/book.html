@@ -1,0 +1,64 @@
+{% extends "project1layout.html" %}
+
+{% block heading %}
+See below for more details on: "{{ book[1] }}" or perform a new search.
+<br>
+{% endblock %}
+
+{% block body %}
+<form action="{{ url_for('search') }}" method="POST">
+  <input type="text" name="query" placeholder="ISBN, title, author, year">
+  <br>
+  <br>
+  <button>New search</button>
+</form>
+<br>
+<br>
+<br>
+<table class="table table-bordered">
+  <tr>
+    <th>Book Name</th>
+    <th>Author</th>
+    <th>Publication Year</th>
+    <th>ISBN Number</th>
+    <th> GoodReads Ratings Count</th>
+    <th>GoodReads Average Rating</th>
+  </tr>
+  <tr>
+    <td>{{ book[1] }}</td>
+    <td>{{ book[2] }}</td>
+    <td>{{ book[3] }}</td>
+    <td>{{ book[0] }}</td>
+    <td>{{ ratings_count }}</td>
+    <td>{{ average_rating }}</td>
+  </tr>
+</table>
+<br>
+<br>
+{% if reviews %}
+<table class="table table-bordered">
+  <tr>
+    <th>Username</th>
+    <th>Review</th>
+  </tr>
+  {% for row in reviews %}
+  <tr>
+    <td>{{ row[0] }}</td>
+    <td>{{ row[1] }}</td>
+  </tr>
+  {% endfor %}
+</table>
+<br>
+{% endif %}
+<br>
+{% if session["userid"] %}
+<form action="/review/{{book[0]}}" method="POST">
+  <textarea rows="5" cols="30" name="review" placeholder="Add your own review"></textarea>
+  <br>
+  <button>Submit my review</button>
+</form>
+<br>
+<br>
+<br>
+{% endif %}
+{% endblock %}

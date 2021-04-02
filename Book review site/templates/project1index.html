@@ -1,0 +1,21 @@
+{% extends "project1layout.html" %}
+
+{% block heading %}
+Welcome to Books! Please login below.
+{% endblock %}
+
+{% block body %}
+<form action="{{ url_for('login') }}" method="POST">
+  <input type="text" name="username" placeholder="Enter your username">
+  <br>
+  <br>
+  <input type="password" name="password" placeholder="Enter your password">
+  <br>
+  <br>
+  <button>Login</button></form>
+<br>
+<form action="{{ url_for('register') }}" method="GET">
+  <button action="{{ url_for('register') }}" method="GET">New User? Sign Up now.</button>
+</form>
+
+{% endblock %}

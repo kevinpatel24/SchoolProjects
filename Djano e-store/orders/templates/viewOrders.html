@@ -1,0 +1,37 @@
+{% extends "project4layout.html" %}
+
+{% block heading %}
+
+See below for all orders that have been placed. Pending orders are listed first, followed by completed orders.
+{% endblock %}
+
+{% block body %}
+<table class="table table-bordered">
+  <tr>
+    <td>Order #. Click to view details</td>
+    <td>Customer</td>
+    <td>Order Date</td>
+    <td>Order Status. Click any Pending Order to mark as complete</td>
+  </tr>
+
+  {% for pendingOrder in pendingOrders %}
+  <tr>
+    <td><a href="/viewOrderDetails/{{pendingOrder.pk}}">{{ pendingOrder.pk }}</a></td>
+    <td>{{ pendingOrder.customer }}</td>
+    <td>{{ pendingOrder.orderDate }}</td>
+    <td><a href="/markOrderComplete/{{pendingOrder.pk}}">{{ pendingOrder.orderStatus }}</a></td>
+  </tr>
+  {% endfor %}
+  {% for completeOrder in completeOrders %}
+  <tr>
+    <td><a href="/viewOrderDetails/{{completeOrder.pk}}">{{ completeOrder.pk }}</a></td>
+    <td>{{ completeOrder.customer }}</td>
+    <td>{{ completeOrder.orderDate }}</td>
+    <td>{{ completeOrder.orderStatus }}</td>
+  </tr>
+
+  {% endfor %}
+
+</table>
+
+{% endblock %}

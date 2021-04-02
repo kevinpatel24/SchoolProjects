@@ -1,0 +1,40 @@
+{% extends "project4layout.html" %}
+
+{% block heading %}
+Welcome to the E-Store, {{ user.first_name }}
+{% endblock %}
+
+{% block body %}
+See all available products below!
+<br>
+<br>
+<form action="{% url 'search' %}" method="POST">
+  {% csrf_token %}
+  <input type="text" name="query" placeholder="Search for an item">
+  <br>
+  <br>
+  <button>Search</button>
+</form>
+<br>
+<table class="table table-bordered">
+  <tr>
+    <td>Product</td>
+    <td>Price</td>
+  </tr>
+  {% if products %}
+  {% for product in products %}
+  <tr>
+    <td><a href="/product/{{product.pk}}">{{ product }}</a></td>
+    <td>${{product.price}}</td>
+  </tr>
+  {% endfor %}
+  {% else %}
+  <tr>
+    <td>No matching query. Try another search or click our logo to go home</td>
+    <td></td>
+  </tr>
+  {% endif %}
+</table>
+<br>
+
+{% endblock %}

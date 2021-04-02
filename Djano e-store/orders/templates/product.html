@@ -1,0 +1,58 @@
+{% extends "project4layout.html" %}
+
+{% block heading %}
+See below for details on {{ product.name }}
+{% endblock %}
+
+{% block body %}
+<table class="table table-bordered">
+  <tr>
+    <td>Product</td>
+    <td>Price</td>
+    <td>Description</td>
+    <td>Option</td>
+  </tr>
+  <tr>
+    <td>{{ product.name }}</td>
+    <td>${{ product.price }}</td>
+    <td>{{ product.description }}</td>
+    <td><a href="/addToCart/{{product.pk}}">Add To Cart</a></td>
+  </tr>
+</table>
+<br>
+See below for customer Reviews!
+<br>
+<table class="table table-bordered">
+  <tr>
+    <td>Name</td>
+    <td>Date</td>
+    <td>Review</td>
+  </tr>
+  {% if reviews %}
+  {% for review in reviews %}
+  <tr>
+    <td>{{ review.customer }}</td>
+    <td>{{ review.reviewDate }}</td>
+    <td>{{ review.reviewText }}</td>
+  </tr>
+  {% endfor %}
+  {% else %}
+  <tr>
+    <td>No reviews yet!</td>
+    <td></td>
+    <td></td>
+  </tr>
+  {% endif %}
+</table>
+<br>
+Add your own Product Review Below.
+<br>
+<form action="/review/{{product.pk}}" method="POST">
+  {% csrf_token %}
+  <textarea rows="5" cols="30" name="review" placeholder="Add your own review"></textarea>
+  <br>
+  <button>Submit my review</button>
+</form>
+<br>
+<br>
+{% endblock %}

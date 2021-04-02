@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Pizza!</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body style="text-align:center">
+  <br>
+  <h1>
+    <form action="{% url 'index' %}">
+      <input type="image" src="https://cdn.pixabay.com/photo/2019/06/29/21/58/pizza-4306977_1280.png" alt="Submit" width="7%" height="7%"></form>
+  </h1>
+  <br>
+
+  <h2>
+    Welcome to Pizza. Please login below!
+    {% if message %}
+    <br>
+    <div>
+      {{ message }}
+    </div>
+    {% endif %}
+  </h2>
+  <br>
+  <form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <input name="username" type="text" />
+    <input name="password" type="password" />
+    <br>
+    <br>
+    <input type="submit" value="Login" />
+  </form>
+  <br>
+  <form action="{% url 'register' %}" method="GET">
+    {% csrf_token %}
+    <input type="submit" value="Sign Up" />
+  </form>
+</body>
+
+</html>

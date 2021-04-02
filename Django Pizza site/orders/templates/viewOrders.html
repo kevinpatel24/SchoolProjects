@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Pizza!</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body style="text-align:center">
+  <br>
+  <h1>
+    <form action="{% url 'index' %}">
+      <input type="image" src="https://cdn.pixabay.com/photo/2019/06/29/21/58/pizza-4306977_1280.png" alt="Submit" width="7%" height="7%"></form>
+  </h1>
+  <h6>
+    <div><a href="{% url 'logout' %}">Logout</a> <a href="{% url 'checkout' %}">Checkout</a></div>
+  </h6>
+
+
+  <h2>
+    See below for all orders that have been placed. Pending orders are listed first, followed by completed orders.
+  </h2>
+  <br>
+  <table class="table table-bordered">
+    <tr>
+      <td>Order #. Click to view details</td>
+      <td>Customer</td>
+      <td>Order Date</td>
+      <td>Order Status. Click any Pending Order to mark as complete</td>
+    </tr>
+
+    {% for pendingOrder in pendingOrders %}
+    <tr>
+      <td><a href="/viewOrderDetails/{{pendingOrder.pk}}">{{ pendingOrder.pk }}</a></td>
+      <td>{{ pendingOrder.customer }}</td>
+      <td>{{ pendingOrder.orderDate }}</td>
+      <td><a href="/markOrderComplete/{{pendingOrder.pk}}">{{ pendingOrder.orderStatus }}</a></td>
+    </tr>
+    {% endfor %}
+    {% for completeOrder in completeOrders %}
+    <tr>
+      <td><a href="/viewOrderDetails/{{completeOrder.pk}}">{{ completeOrder.pk }}</a></td>
+      <td>{{ completeOrder.customer }}</td>
+      <td>{{ completeOrder.orderDate }}</td>
+      <td>{{ completeOrder.orderStatus }}</td>
+    </tr>
+
+    {% endfor %}
+
+  </table>
+</body>
+
+</html>

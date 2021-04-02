@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Pizza!</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body style="text-align:center">
+  <br>
+  <h1>
+    <form action="{% url 'index' %}">
+      <input type="image" src="https://cdn.pixabay.com/photo/2019/06/29/21/58/pizza-4306977_1280.png" alt="Submit" width="7%" height="7%"></form>
+  </h1>
+  <h6>
+    <div><a href="{% url 'logout' %}">Logout</a>
+      {% if request.user.is_superuser %}
+      <a href="{% url 'viewOrders' %}">View Orders</a>
+      {% endif %}
+
+    </div>
+  </h6>
+  {% if message %}
+  <div>
+    {{ message }}
+  </div>
+  {% endif %}
+  <h2>
+    See below for your order details. Click Place order when you're ready!
+    {% if message %}
+    <br>
+    <div>
+      {{ message }}
+    </div>
+    {% endif %}
+  </h2>
+  <br>
+  <table class="table table-bordered">
+    <tr>
+      <td>Cart Item</td>
+      <td>Add Ons</td>
+      <td>Price</td>
+    </tr>
+    {% for orderItem in orderItems %}
+    <tr>
+      <td>{{ orderItem.menuItem }}</td>
+      <td>{% for addOns in orderItem.addOns.all %}{{ addOns }}, {% endfor %}</td>
+      <td>${{ orderItem.total }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td>Total</td>
+      <td></td>
+      <td>${{ totalPrice }}</td>
+    </tr>
+  </table>
+  <a href="{% url 'placeOrder' %}">Place Order!</a>
+  <br>
+  <br>
+</body>
+
+</html>

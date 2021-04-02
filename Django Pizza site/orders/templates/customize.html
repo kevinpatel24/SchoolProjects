@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Pizza!</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body style="text-align:center">
+  <br>
+  <h1>
+    <form action="{% url 'index' %}">
+      <input type="image" src="https://cdn.pixabay.com/photo/2019/06/29/21/58/pizza-4306977_1280.png" alt="Submit" width="7%" height="7%"></form>
+  </h1>
+  <h6>
+    <div><a href="{% url 'logout' %}">Logout</a> <a href="{% url 'checkout' %}">Checkout</a>
+      {% if request.user.is_superuser %}
+      <a href="{% url 'viewOrders' %}">View Orders</a>
+      {% endif %}
+
+    </div>
+  </h6>
+
+  <br>
+
+  <h2>
+    Any optional customization options listed below. Click Add To cart when ready. {{ user.username }}
+    {% if message %}
+    <br>
+    <div>
+      {{ message }}
+    </div>
+    {% endif %}
+  </h2>
+  <br>
+  <form action="{% url 'addToCart' menuItem.pk %}" method="post">
+    {% csrf_token %}
+    {% for i in maxAddOns %}
+    {{ forloop.counter }}
+
+    <select name="addOnSelection{{ forloop.counter}}">
+      {% for customizationOption in customizationOptions %}
+
+      <option value="{{ customizationOption.pk }}">{{ customizationOption }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    <br>
+    {% endfor %}
+    <input type="submit" id="addToCartButton" value="Add to Cart">
+
+  </form>
+
+
+
+</body>
+
+</html>

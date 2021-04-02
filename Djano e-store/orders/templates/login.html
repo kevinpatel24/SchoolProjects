@@ -1,0 +1,25 @@
+{% extends "project4layout.html" %}
+
+{% block heading %}
+
+Welcome to the E-Store. Please login below!
+{% endblock %}
+
+
+{% block body %}
+
+
+<form action="{% url 'login' %}" method="post">
+  {% csrf_token %}
+  <input name="username" type="text" />
+  <input name="password" type="password" />
+  <br>
+  <br>
+  <input type="submit" value="Login" />
+</form>
+<br>
+<form action="{% url 'register' %}" method="GET">
+  {% csrf_token %}
+  <input type="submit" value="Sign Up" />
+</form>
+{% endblock %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>E-Store!</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body style="text-align:center">
+  <br>
+  <h1>
+    <form action="{% url 'index' %}">
+      <input type="image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Owl_shopping_by_mimooh.svg/1310px-Owl_shopping_by_mimooh.svg.png" alt="Submit" width="12%" height="12%"></form>
+  </h1>
+  <h6>
+    <div>{% if user.is_authenticated %}
+      <a href="{% url 'logout' %}">Logout</a>
+      <a href="{% url 'checkout' %}">Checkout</a>
+      {% endif %}
+      {% if request.user.is_superuser %}
+      <a href="{% url 'viewOrders' %}">View Orders</a>
+      <a href="{% url 'addNewItem' %}">Add New Item</a>
+      {% endif %}
+    </div>
+  </h6>
+  <h2>
+    {% if message %}
+    <div>
+      <font color="{{ color }}">
+        {{ message }}
+      </font>
+    </div>
+    {% endif %}
+    {% block heading %}
+    {% endblock %}
+  </h2>
+  <br>
+  {% block body %}
+  {% endblock %}
+</body>
+
+</html>

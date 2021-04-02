@@ -1,0 +1,38 @@
+{% extends "project4layout.html" %}
+
+{% block heading %}
+
+See your cart contents below
+{% endblock %}
+
+{% block body %}
+<table class="table table-bordered">
+  <tr>
+    <td>Cart Item</td>
+    <td>Option</td>
+    <td>Price</td>
+  </tr>
+  {% for orderItem in orderItems %}
+  <tr>
+    <td>{{ orderItem.product }}</td>
+    <td><a href="removeFromCart/{{orderItem.pk}}">Remove from Cart</a></td>
+    <td>${{ orderItem.product.price }}</td>
+  </tr>
+  {% endfor %}
+  <tr>
+    <td>Total</td>
+    <td></td>
+    <td>${{ totalPrice }}</td>
+  </tr>
+</table>
+<form action="{% url 'placeOrder' %}" method="post">
+  {% csrf_token %}
+  <textarea rows="3" cols="25" name="address" placeholder="Enter Shipping Address here"></textarea>
+  <br>
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="{{ key }}" data-description="A Django Charge" data-amount="{{ stripePrice }}" data-locale="auto">
+  </script>
+</form>
+<br>
+<br>
+
+{% endblock %}

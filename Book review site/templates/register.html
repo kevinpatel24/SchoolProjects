@@ -1,0 +1,23 @@
+{% extends "project1layout.html" %}
+
+{% block heading %}
+Please fill out your information below to register.
+{% endblock %}
+
+{% block body %}
+<form action="{{ url_for('registered') }}" method="POST">
+  <input type="text" name="username" placeholder="Enter a username">
+  <br>
+  <br>
+  <input type="password" name="password" placeholder="Enter a password">
+  <br>
+  <br>
+  <button>Register</button>
+</form>
+<br>
+<form action="{{ url_for('index') }}">
+  <button>Already Registered? Login Here.</button>
+</form>
+
+
+{% endblock %}

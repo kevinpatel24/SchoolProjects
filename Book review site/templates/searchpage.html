@@ -1,0 +1,20 @@
+{% extends "project1layout.html" %}
+
+{% block heading %}
+{{ username }}, Welcome to the Searchpage!
+<br>
+Click the icon at any point to logout.
+<br>
+{% endblock %}
+
+{% block body %}
+<h2>
+  <form action="{{ url_for('search') }}" method="POST">
+    <input type="text" name="query" placeholder="ISBN, title, author, year">
+    <br>
+    <br>
+    <button>Search</button>
+  </form>
+</h2>
+
+{% endblock %}

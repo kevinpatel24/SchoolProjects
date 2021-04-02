@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Books!</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body style="text-align:center">
+  <br>
+  <h1>
+    <form action="{{ url_for('index') }}">
+      <input type="image" src="https://www.publicdomainpictures.net/pictures/140000/velka/hand-holding-book.jpg" alt="Submit" width="10%" height="10%"></form>
+  </h1>
+  <br>
+
+  <h2>
+    <div style="color: {{ color }};">
+      {{ message }}
+    </div>
+    {% block heading %}{% endblock %}
+  </h2>
+  <br>
+  {% block body %}
+  {% endblock %}
+</body>
+
+</html>
